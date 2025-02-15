@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="Final project for: Coursera - IBM JavaScript Programming Essentials">
+
+        <title>
+            Coursera JS Travel Recommendation
+        </title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+<style>
+    /*
+        Requirement. Must remain embedded in the page.
+    */
+
+    body {
+        font-family: "Open Sans", Verdana, Geneva, Tahoma, sans-serif;
+        /*height: 100vh;*/
+        margin: 0;
+    }
+
+    ::selection {
+        background-color: #151d29;
+        color: white;
+    }
+
+    ::-webkit-search-cancel-button {
+        display: none;
+    }
+
+    button {
+        background-color: white;
+        border: none;
+        border-radius: 5rem;
+        color: #151d29;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+    }
+
+    button:active {
+        background-color: #557aa8 !important;
+        color: white;
+    }
+
+    button:hover {
+        background-color: #395271;
+        color: white;
+    }
+
+    #container {
+        background-color: #395271;
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/35/Despair_%28183291939%29.jpeg");
+        background-position-x: left;
+        background-position-y: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        max-width: 2048px;
+        min-height: 100vh;
+    }
+
+    #nav-bar {
+        background: #0000004f;
+        color: white;
+        display: flex;
+    }
+
+    #brand {
+        display: flex;
+        margin: 0 1rem;
+    }
+
+    #logo {
+        color: white;
+        transform: rotate(315deg);
+        width: 60px;
+    }
+
+    #title {
+        align-self: center;
+        font-size: xx-large;
+        font-weight: 900;
+        margin-left: 1rem;
+    }
+
+    #pages {
+        align-items: center;
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+    }
+
+    #search-bar {
+        align-self: center;
+        margin: 0 1rem;
+        visibility: hidden;
+    }
+
+    #search-text {
+        border: none;
+        border-radius: 1rem;
+        color: #151d29;
+        padding: 0.5rem;
+    }
+
+    #contact-page {
+        align-self: center;
+        background-color: #00000099;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
+        overflow-x: clip;
+        width: 90vw;
+    }
+
+    #contact-form {
+        align-items: center;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        max-width: 20rem;
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+        border: none;
+        border-radius: 1rem;
+        color: #151d29;
+        margin-bottom: 2rem;
+        padding: 0.5rem;
+    }
+
+    #footer {
+        align-self: self-end;
+        color: white;
+        font-weight: 600;
+        padding: 0.5rem 2rem;
+        text-align: center;
+    }
+
+    .link {
+        color: white;
+        font-weight: 600;
+        padding: 0.5rem;
+        text-decoration: none;
+    }
+
+    .link-container {
+        margin: 0 0.5rem;
+    }
+
+    @media (orientation: portrait) {
+        body {
+            background-position-y: bottom;
+        }
+    }
+
+    @media (max-width: 1024px) {
+        #nav-bar {
+            flex-direction: column;
+        }
+
+        #brand {
+            align-self: center;
+        }
+
+        #search-bar {
+            margin-bottom: 0.5rem;
+        }
+    }
+</style>
+
+    </head>
+
+    <body>
+        <noscript>
+            Please, enable JavaScript.
+        </noscript>
+
+        <div id="container">
+            <nav id="nav-bar">
+                <div id="brand">
+                    <div id="logo">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">
+                            <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                            <path d="M514.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64l-73.8 0L630.8 469.1c10.4 8.2 12.3 23.3 4.1 33.7s-23.3 12.3-33.7 4.1L9.2 42.9C-1.2 34.7-3.1 19.6 5.1 9.2S28.4-3.1 38.8 5.1L238.1 161.3 197.8 20.4C194.9 10.2 202.6 0 213.2 0l56.2 0c11.5 0 22.1 6.2 27.8 16.1L397.7 192l116.6 0zM41.5 128.7l321 252.9L297.2 495.9c-5.7 10-16.3 16.1-27.8 16.1l-56.2 0c-10.6 0-18.3-10.2-15.4-20.4l49-171.6L144 320l-43.2 57.6c-3 4-7.8 6.4-12.8 6.4l-42 0c-7.8 0-14-6.3-14-14c0-1.3 .2-2.6 .5-3.9L64 256 32.5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-6.2 4-11.4 9.5-13.3z"/>
+                        </svg>
+                    </div>
+                    <div id="title">
+                        Travel Despair
+                    </div>
+                </div>
+
+                <ul id="pages">
+                    <li class="link-container">
+                        <a class="link" href="travel_recommendation.html">Home</a>
+                    </li>
+                    <li class="link-container">
+                        <a class="link" href="about.html">About Us</a>
+                    </li>
+                    <li class="link-container">
+                        <a class="link" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+
+                <div id="search-bar">
+                    <input type="search" id="search-text" placeholder="Destination to search">
+                    <button type="button" id="search-button">Search</button>
+                    <button type="button" id="clear-button">Clear</button>
+                </div>
+            </nav>
+
+            <div id="contact-page">
+                <form id="contact-form">
+                    <input type="text" placeholder="Name" name="name">
+                    <input type="email" placeholder="E-mail" name="email">
+                    <textarea placeholder="Message" name="message"></textarea>
+                    <button type="submit">Submit [NOT IMPLEMENTED]</button>
+                </form>
+            </div>
+
+            <footer id="footer">
+                <div>
+                    &copy; 2025 Rogue Modron
+                </div>
+                <div>
+                    Images by
+                    <a class="link" style="padding: 0; text-decoration: underline;"
+                        href="https://www.wikimedia.org">
+                        Wikimedia
+                    </a>
+                </div>
+            </footer>
+        </div>
+
+    </body>
+
+</html>
